@@ -24,6 +24,7 @@ dependencies:
   pub_semver: ^2.1.4
   path: ^1.9.1
   acanthis: ^1.4.5
+  collection: ^1.19.1
  
   
  
