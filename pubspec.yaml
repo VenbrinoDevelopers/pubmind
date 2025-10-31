@@ -14,31 +14,17 @@ dependencies:
   mason_logger: ^0.3.3
   cli_spin: ^1.0.1
   interact: ^2.2.0
-  
   langchain: ^0.8.0+1
   langchain_openai: ^0.8.0+1
   langchain_community: ^0.4.0+1
-  langchain_supabase: ^0.2.0+1
-  
   http: ^1.1.0
   pub_api_client: ^2.6.0
-  
   yaml: ^3.1.2
   yaml_edit: ^2.2.1
-  
   pub_semver: ^2.1.4
-  
   path: ^1.9.1
-  
-  collection: ^1.18.0
-  meta: ^1.11.0
-
-  zod_validation: ^1.0.5
   acanthis: ^1.4.5
-  jozz_events: ^1.1.4
-  event_truck: ^1.0.0
-  event_scheduler: ^1.0.0
-  bitcoin_base: ^6.9.0
+ 
   
  
 dev_dependencies:
