@@ -23,9 +23,12 @@ Tool createRecommendPackagesTool() {
   return Tool.fromFunction<RecommendPackagesInput, String>(
     name: 'recommend_packages',
     description:
-        'Compare multiple packages and recommend the best option based on metrics AND how well they match the user\'s requirements. '
-        'You should analyze each package\'s description/features and assign a descriptionScore (0-1) based on relevance. '
-        'Pass this score along with other metrics. Higher descriptionScore means better match to user needs.',
+        'Intelligently compare multiple packages and recommend the best option based on comprehensive scoring. '
+        'SCORING: Combines objective metrics (pub points, popularity, likes, maintenance) with YOUR analysis. '
+        'YOU MUST: Assign descriptionScore (0.0-1.0) for each package based on how well it matches user requirements. '
+        'HOW: Read each package description/features, analyze fit for user needs, assign honest score. '
+        'Higher descriptionScore = better match. Be analytical and fair. '
+        'Returns: Ranked list with total scores, detailed breakdown, and recommendation reasoning.',
     inputJsonSchema: object({
       'packages': object({
         'name':
@@ -41,7 +44,9 @@ Tool createRecommendPackagesTool() {
                     'Description score must be between 0-1 it can be 0.1,0.2.0.5,0.9 and so on')
             .meta(MetadataEntry(
                 description:
-                    'How well this package matches user requirements (0-1) it can be 0.1,0.2.0.5,0.9 and so on. Analyze the package description/features.')),
+                    'YOUR ANALYSIS: How well does this package match user requirements? '
+                    '1.0=perfect, 0.8-0.9=excellent, 0.6-0.7=good, 0.4-0.5=partial, 0.0-0.3=poor. '
+                    'Analyze package description and features carefully.')),
         'publisher':
             string().meta(MetadataEntry(description: 'Package publisher')),
         'lastUpdated': string()

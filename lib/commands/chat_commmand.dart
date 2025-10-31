@@ -16,6 +16,7 @@ import 'package:langchain/langchain.dart';
 import 'package:pubmind/core/command_service.dart';
 import 'package:pubmind/utils/logger_utils.dart';
 import 'package:pubmind/utils/process_runner.dart';
+import 'package:pubmind/utils/response_formatter.dart';
 
 class ChatCommand extends BaseCommand {
   ChatCommand(super.logger) {
@@ -56,7 +57,7 @@ class ChatCommand extends BaseCommand {
       apiKey: apiKey!,
       model: model,
       temperature: 0.5,
-      maxIterations: 30,
+      maxIterations: 100,
       tools: [
         createRecommendPackagesTool(),
         createTaskDoneTool(),
@@ -117,9 +118,6 @@ class ChatCommand extends BaseCommand {
 
   Future<void> _startAiagent(String message) async {
     logger.info('');
-
-    final progress = logger.progress('${lightGreen.wrap('AI')} is thinking');
-
     try {
       final response = await _agent!.execute(
         task: message,
@@ -130,13 +128,11 @@ class ChatCommand extends BaseCommand {
         },
       );
 
-      progress.complete();
-
       logger.info('');
-      logger.info('${lightGreen.wrap('AI')} > $response');
+      logger.info('${lightGreen.wrap('AI')} > ');
+      ResponseFormatter.printFormatted(logger, response);
       logger.info('');
     } catch (e) {
-      progress.fail('Error processing message');
       logger.err('Error: $e');
       logger.info('');
     }

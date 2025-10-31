@@ -15,7 +15,11 @@ Tool createGetPackageInfoTool() {
   return Tool.fromFunction<GetPackageInfoInput, String>(
     name: 'get_package_info',
     description:
-        'Get detailed information about a specific Dart package from pub.dev, including version, description, homepage, repository, pub points, popularity, likes, SDK constraint, dependencies, and dev dependencies. ',
+        'Fetch comprehensive information about a specific package from pub.dev. '
+        'Returns: version, description, homepage, repository URL, pub points, popularity score, '
+        'like count, SDK constraints, dependencies, and dev dependencies. '
+        'Use this to gather detailed metrics for packages you are considering recommending. '
+        'Call this for your top 2-3 candidates after searching to make informed comparisons.',
     inputJsonSchema: object({
       'package': string().min(1).meta(
           const MetadataEntry(description: 'Package name to get info for')),

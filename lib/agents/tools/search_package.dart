@@ -23,7 +23,10 @@ Tool createSearchPackagesTool({PubClient? client}) {
 
   return Tool.fromFunction<SearchPackagesInput, String>(
     name: 'search_packages',
-    description: 'Search packages on pub.dev by keyword.',
+    description: 'Search pub.dev for packages matching a keyword or phrase. '
+        'Returns package names and URLs. Use this as your FIRST step when user requests functionality. '
+        'Results are ranked by relevance. '
+        'After searching, use get_package_info on top 2-3 results to gather detailed metrics for comparison.',
     inputJsonSchema: object({
       'query': string().min(1).meta(MetadataEntry(description: 'Search query')),
       'limit': number()

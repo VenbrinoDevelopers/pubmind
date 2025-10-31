@@ -10,8 +10,11 @@ Tool createCheckCompatibilityTool({
 }) {
   return Tool.fromFunction<CheckCompatibilityInput, String>(
     name: 'check_package_compatibility',
-    description:
-        'Check if a package is compatible with the current project by performing a dry-run test before recommending it. ',
+   description:
+        'Verify if a package can be safely added to the project without conflicts. '
+        'Performs a dry-run test that checks SDK constraints, dependency conflicts, and version compatibility. '
+        'Use this ONCE before installing a package. Returns detailed compatibility report. '
+        'IMPORTANT: Do not call this repeatedly - check once, then proceed with install_package or try an alternative.',
     inputJsonSchema: object({
       'package': string().min(1).meta(MetadataEntry(
             description: 'Package name to check',

@@ -11,10 +11,11 @@ Tool createInstallPackageTool({
   return Tool.fromFunction<CheckCompatibilityInput, String>(
       name: 'install_package',
       description:
-          'Install a package to the project. This will modify pubspec.yaml and run pub get. '
-          'Only use this tool if the user has confrim that you can install'
-          'call check_package_compatibility tool before using this tool'
-          'The installation includes automatic backup and can be restored if it fails.',
+          'Install a package to the project by modifying pubspec.yaml and running pub get. '
+          'Includes automatic backup and rollback on failure. '
+          'PREREQUISITES: Must call check_package_compatibility FIRST. User must have confirmed installation. '
+          'SAFETY: Creates backup before changes, restores automatically if installation fails. '
+          'Use this after compatibility is verified and user has approved the installation.',
       inputJsonSchema: object({
         'package': string().min(1).meta(
               MetadataEntry(description: 'Package name to install'),

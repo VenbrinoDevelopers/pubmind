@@ -10,8 +10,15 @@ Tool createRunCommandTool({
   return Tool.fromFunction<RunCommandInput, String>(
     name: 'run_command',
     description:
-        'Run common Dart/Flutter pub commands. Use this for maintenance tasks like cleaning, '
-        'upgrading, removing packages, or checking outdated dependencies.',
+        'Execute common Dart/Flutter pub commands for project maintenance. '
+        'Available commands: '
+        'pub_get (fetch dependencies), '
+        'pub_upgrade (upgrade packages), '
+        'pub_downgrade (downgrade packages), '
+        'pub_outdated (check for updates), '
+        'pub_remove (uninstall package), '
+        'flutter_clean (clean build files). '
+        'Use for maintenance tasks after installations or when troubleshooting dependency issues.',
     inputJsonSchema: object({
       'command': string().enumerated(
         PubCommand.values,

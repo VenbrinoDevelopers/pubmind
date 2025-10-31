@@ -1,48 +1,44 @@
 name: pubmind
 description: An intelligent AI agent that recommends and auto-installs pub.dev packages with smart compatibility checking and conflict resolution.
-version: 1.0.0
+version: 0.1.0
 homepage: https://github.com/VenbrinoDevelopers/pubmind
 repository: https://github.com/VenbrinoDevelopers/pubmind
 issue_tracker: https://github.com/VenbrinoDevelopers/pubmind/issues
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.0.0
 
 dependencies:
-  # CLI Framework
   args: ^2.4.2
   cli_util: ^0.4.0
   mason_logger: ^0.3.3
   cli_spin: ^1.0.1
   interact: ^2.2.0
   
-  # LangChain for AI Agent
   langchain: ^0.8.0+1
   langchain_openai: ^0.8.0+1
   langchain_community: ^0.4.0+1
   langchain_supabase: ^0.2.0+1
   
-  # HTTP and API
   http: ^1.1.0
   pub_api_client: ^2.6.0
   
-  # YAML Processing
   yaml: ^3.1.2
   yaml_edit: ^2.2.1
   
-  # Version Management
   pub_semver: ^2.1.4
   
-  # File System
-  path: ^1.9.0
+  path: ^1.9.1
   
-  # Utilities
   collection: ^1.18.0
   meta: ^1.11.0
 
-  # Validation
   zod_validation: ^1.0.5
   acanthis: ^1.4.5
+  jozz_events: ^1.1.4
+  event_truck: ^1.0.0
+  event_scheduler: ^1.0.0
+  bitcoin_base: ^6.9.0
   
  
 dev_dependencies:
@@ -50,6 +46,5 @@ dev_dependencies:
   test: ^1.25.0
   mocktail: ^1.0.0
 
-# Make pubmind available as a global command
 executables:
   pubmind:

@@ -14,9 +14,10 @@ Tool createReadPubspecTool({required String projectDirectory}) {
   return Tool.fromFunction<ReadPubspecInput, String>(
     name: 'read_pubspec',
     description:
-        'Read and parse the current project\'s pubspec.yaml file. This tool will return '
-        'the project\'s dependencies, dev dependencies, and metadata. This is useful '
-        'for getting a snapshot of the project\'s current state, or for gathering ',
+        'Read and parse the project\'s pubspec.yaml file to understand current state. '
+        'Returns: project name, version, description, SDK constraints, all dependencies, and dev dependencies. '
+        'CRITICAL: Call this FIRST before any package recommendations to understand existing dependencies, '
+        'avoid duplicates, and check for potential conflicts. Essential for maintaining project integrity.',
     inputJsonSchema: object({}).toJsonSchema(),
     func: (ReadPubspecInput input) async {
       final pubspecFile = File(path.join(projectDirectory, 'pubspec.yaml'));
