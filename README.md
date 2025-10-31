@@ -8,40 +8,6 @@ PubMind is an AI-powered CLI tool that revolutionizes how you discover, evaluate
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Dart](https://img.shields.io/badge/Dart-3.0%2B-blue.svg)](https://dart.dev)
 
----
-
-## ✨ Features
-
-### 🧠 AI-Powered Intelligence
-
-- **Natural Language Search**: Just describe what you need - "I need state management" or "add http client"
-- **Context-Aware Recommendations**: Analyzes your project to suggest packages that fit your needs
-- **Smart Reasoning**: Uses advanced sequential thinking to break down complex decisions
-- **Conflict Resolution**: Automatically detects and resolves dependency conflicts
-
-### 🔍 Package Discovery
-
-- **Intelligent Search**: Find packages using keywords or natural language
-- **Detailed Analysis**: Get comprehensive metrics (pub points, popularity, likes, maintenance status)
-- **Comparative Scoring**: Compare multiple packages side-by-side with intelligent ranking
-- **Quality Assessment**: Evaluates packages based on pub points, popularity, and maintenance
-
-### 🛡️ Safety First
-
-- **Compatibility Checking**: Dry-run verification before any installation
-- **Automatic Backups**: Your pubspec.yaml is backed up before every change
-- **Rollback on Failure**: Automatic restoration if installation fails
-- **Conflict Detection**: Identifies version conflicts before they break your project
-
-### 💬 Interactive Chat Mode
-
-- **Conversational Interface**: Chat with AI about your package needs
-- **Project Context**: AI understands your Dart/Flutter project structure
-- **Multi-turn Conversations**: Build on previous discussions naturally
-- **Command History**: Review and replay previous interactions
-
----
-
 ## 🚀 Installation
 
 ### Prerequisites
@@ -141,21 +107,17 @@ or http for simplicity. Which would you prefer?
 ### Example 2: Resolving Conflicts
 
 ```
-You > add freezed
+You > resolve my dependency issues
 
 AI > Checking compatibility...
-⚠ Detected conflict: freezed requires meta ^1.9.0
+⚠ Detected issue: freezed requires meta ^1.9.0
    but your project uses meta ^1.11.0
 
 Analyzing solutions...
 ✓ Solution found: Adjust freezed version to ^2.4.1
   This version is compatible with your dependencies.
 
-Install freezed ^2.4.1? (yes/no)
-
-You > yes
-
-AI > Installing freezed ^2.4.1...
+AI > Adjusting freezed version to ^2.4.1...
 ✓ Running pub get...
 ✓ Installation successful!
 ```
@@ -183,7 +145,7 @@ Repository: https://github.com/rrousselGit/river_pod
 Dependencies: meta, state_notifier
 Dev Dependencies: test, mockito
 
-Would you like to install this package?
+AI > Would you like to install this package?
 ```
 
 ### Example 4: Comparing Packages
@@ -246,6 +208,7 @@ dart run bin/pubmind.dart chat
 5. Open a Pull Request
 
 ## 📝 License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📞 Support
