@@ -10,7 +10,7 @@ Tool createCheckCompatibilityTool({
 }) {
   return Tool.fromFunction<CheckCompatibilityInput, String>(
     name: 'check_package_compatibility',
-   description:
+    description:
         'Verify if a package can be safely added to the project without conflicts. '
         'Performs a dry-run test that checks SDK constraints, dependency conflicts, and version compatibility. '
         'Use this ONCE before installing a package. Returns detailed compatibility report. '

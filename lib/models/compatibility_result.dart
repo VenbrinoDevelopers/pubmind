@@ -63,4 +63,3 @@ class CompatibilityResult {
     return buffer.toString();
   }
 }
-

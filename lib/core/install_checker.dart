@@ -54,7 +54,8 @@ class InstallationResult {
         }
       }
 
-      buffer.writeln('\n💡 Your project has been restored to its previous state');
+      buffer
+          .writeln('\n💡 Your project has been restored to its previous state');
     }
 
     return buffer.toString();

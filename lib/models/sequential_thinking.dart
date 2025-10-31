@@ -105,7 +105,8 @@ class SequentialThinkingTracker {
     final header =
         '$prefix ${thought.thoughtNumber}/${thought.totalThoughts}$context';
     final borderLength = [header.length, thought.thought.length]
-        .reduce((a, b) => a > b ? a : b) + 4;
+            .reduce((a, b) => a > b ? a : b) +
+        4;
     final border = '─' * borderLength;
 
     return '''

@@ -28,7 +28,11 @@ class ProcessRunner {
   }
 
   Future<RunnerProcessResult> pubAdd(String package, {String? version}) async {
-    final args = ['pub', 'add', version != null ? '$package:$version' : package];
+    final args = [
+      'pub',
+      'add',
+      version != null ? '$package:$version' : package
+    ];
     if (verbose) print('📦 Running $executable ${args.join(' ')}...');
     return _runCommand(executable, args);
   }
