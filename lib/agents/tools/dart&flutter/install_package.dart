@@ -1,51 +1,51 @@
-import 'package:acanthis/acanthis.dart';
-import 'package:langchain/langchain.dart';
-import 'package:pubmind/core/compatibility_checker.dart';
-import 'package:pubmind/models/compatibility_input.dart';
-import 'package:pubmind/utils/process_runner.dart';
+// import 'package:acanthis/acanthis.dart';
+// import 'package:langchain/langchain.dart';
+// import 'package:pubmind/core/compatibility_checker.dart';
+// import 'package:pubmind/models/compatibility_input.dart';
+// import 'package:pubmind/utils/process_runner.dart';
 
-Tool createInstallPackageTool({
-  required String projectDirectory,
-  required ProcessRunner processRunner,
-}) {
-  return Tool.fromFunction<CheckCompatibilityInput, String>(
-      name: 'install_package',
-      description:
-          'Install a package to the project by modifying pubspec.yaml and running pub get. '
-          'Includes automatic backup and rollback on failure. '
-          'PREREQUISITES: Must call check_package_compatibility FIRST. User must have confirmed installation. '
-          'SAFETY: Creates backup before changes, restores automatically if installation fails. '
-          'Use this after compatibility is verified and user has approved the installation.',
-      inputJsonSchema: object({
-        'package': string().min(1).meta(
-              MetadataEntry(description: 'Package name to install'),
-            ),
-        'version': string().meta(
-          MetadataEntry(
-            description:
-                'version constraint (e.g., "^1.0.0", "1.2.3"). If not provided, uses latest compatible version.',
-          ),
-        ),
-      }).toJsonSchema(),
-      func: (input) async {
-        try {
-          final checker = PackageCompatibilityChecker(
-            projectDirectory: projectDirectory,
-            processRunner: processRunner,
-          );
+// Tool createInstallPackageTool({
+//   required String projectDirectory,
+//   required ProcessRunner processRunner,
+// }) {
+//   return Tool.fromFunction<CheckCompatibilityInput, String>(
+//       name: 'install_package',
+//       description:
+//           'Install a package to the project by modifying pubspec.yaml and running pub get. '
+//           'Includes automatic backup and rollback on failure. '
+//           'PREREQUISITES: Must call check_package_compatibility FIRST. User must have confirmed installation. '
+//           'SAFETY: Creates backup before changes, restores automatically if installation fails. '
+//           'Use this after compatibility is verified and user has approved the installation.',
+//       inputJsonSchema: object({
+//         'package': string().min(1).meta(
+//               MetadataEntry(description: 'Package name to install'),
+//             ),
+//         'version': string().meta(
+//           MetadataEntry(
+//             description:
+//                 'version constraint (e.g., "^1.0.0", "1.2.3"). If not provided, uses latest compatible version.',
+//           ),
+//         ),
+//       }).toJsonSchema(),
+//       func: (input) async {
+//         try {
+//           final checker = PackageCompatibilityChecker(
+//             projectDirectory: projectDirectory,
+//             processRunner: processRunner,
+//           );
 
-          final result = await checker.install(
-            packageName: input.package,
-            version: input.version,
-          );
+//           final result = await checker.install(
+//             packageName: input.package,
+//             version: input.version,
+//           );
 
-          return result.formatReport();
-        } catch (e) {
-          return 'Error during installation: $e';
-        }
-      },
-      getInputFromJson: (json) => CheckCompatibilityInput.fromJson(json),
-      handleToolError: (e) {
-        return 'Install tool error : ${e.toString()}';
-      });
-}
+//           return result.formatReport();
+//         } catch (e) {
+//           return 'Error during installation: $e';
+//         }
+//       },
+//       getInputFromJson: (json) => CheckCompatibilityInput.fromJson(json),
+//       handleToolError: (e) {
+//         return 'Install tool error : ${e.toString()}';
+//       });
+// }

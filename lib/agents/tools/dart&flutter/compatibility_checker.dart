@@ -14,7 +14,7 @@ Tool createCheckCompatibilityTool({
         'Verify if a package can be safely added to the project without conflicts. '
         'Performs a dry-run test that checks SDK constraints, dependency conflicts, and version compatibility. '
         'Use this ONCE before installing a package. Returns detailed compatibility report. '
-        'IMPORTANT: Do not call this repeatedly - check once, then proceed with install_package or try an alternative.',
+        'IMPORTANT: Do not call this repeatedly - check once, then proceed with run_command or try an alternative.',
     inputJsonSchema: object({
       'package': string().min(1).meta(MetadataEntry(
             description: 'Package name to check',

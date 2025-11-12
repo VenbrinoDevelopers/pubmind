@@ -1,18 +1,19 @@
 import 'dart:io';
+
+import 'package:langchain/langchain.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:pubmind/agents/agent.dart';
 import 'package:pubmind/agents/prompt/system_prompt.dart';
+import 'package:pubmind/agents/tools/core/sequential_thinking.dart';
+import 'package:pubmind/agents/tools/core/task_done.dart';
 import 'package:pubmind/agents/tools/dart&flutter/compatibility_checker.dart';
 import 'package:pubmind/agents/tools/dart&flutter/get_package_info.dart';
-import 'package:pubmind/agents/tools/dart&flutter/install_package.dart';
 import 'package:pubmind/agents/tools/dart&flutter/read_pub_spec.dart';
 import 'package:pubmind/agents/tools/dart&flutter/recommendation.dart';
 import 'package:pubmind/agents/tools/dart&flutter/run_command.dart';
 import 'package:pubmind/agents/tools/dart&flutter/search_package.dart';
-import 'package:pubmind/agents/tools/core/sequential_thinking.dart';
-import 'package:pubmind/agents/tools/core/task_done.dart';
+import 'package:pubmind/agents/tools/editor/editor_tool.dart';
 import 'package:pubmind/commands/base_commands.dart';
-import 'package:langchain/langchain.dart';
 import 'package:pubmind/core/command_service.dart';
 import 'package:pubmind/utils/logger_utils.dart';
 import 'package:pubmind/utils/process_runner.dart';
@@ -70,17 +71,13 @@ class ChatCommand extends BaseCommand {
         ),
         createReadPubspecTool(projectDirectory: projectDirectory),
         createSequentialThinkingTool(),
-        createInstallPackageTool(
-          processRunner: ProcessRunner(
-              workingDirectory: projectDirectory, verbose: verbose),
-          projectDirectory: projectDirectory,
-        ),
         createRunCommandTool(
           commandService: CommandService(
             processRunner: ProcessRunner(
                 workingDirectory: projectDirectory, verbose: verbose),
           ),
         ),
+        createTextEditorTool(projectDirectory: projectDirectory),
       ],
     );
 

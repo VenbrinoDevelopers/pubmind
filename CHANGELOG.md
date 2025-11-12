@@ -1,5 +1,10 @@
 ## 0.1.0 
 
+### Tester
+- Added tests for core functionalities
+- Improved test coverage on package installation
+- Validated compatibility checking logic
+
 ### Added
 - Initial release of PubMind AI Package Manager
 - AI-powered package search and recommendations

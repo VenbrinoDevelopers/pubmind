@@ -22,17 +22,21 @@ class ProcessRunner {
 
   String get executable => isFlutterProject ? 'flutter' : 'dart';
 
+  // ========== EXISTING METHODS ==========
+
   Future<RunnerProcessResult> pubGet() async {
     if (verbose) print('🔄 Running $executable pub get...');
     return _runCommand(executable, ['pub', 'get']);
   }
 
-  Future<RunnerProcessResult> pubAdd(String package, {String? version}) async {
+  Future<RunnerProcessResult> pubAdd(String package,
+      {String? version, bool dev = false}) async {
     final args = [
       'pub',
       'add',
       version != null ? '$package:$version' : package
     ];
+    if (dev) args.add('--dev');
     if (verbose) print('📦 Running $executable ${args.join(' ')}...');
     return _runCommand(executable, args);
   }
@@ -92,6 +96,153 @@ class ProcessRunner {
     return _runCommand(executable, ['pub', ...args]);
   }
 
+  // ========== NEW DEPENDENCY MANAGEMENT METHODS ==========
+
+  Future<RunnerProcessResult> pubDeps() async {
+    if (verbose) print('📊 Running $executable pub deps...');
+    return _runCommand(executable, ['pub', 'deps']);
+  }
+
+  Future<RunnerProcessResult> pubCacheRepair() async {
+    if (verbose) print('🔧 Running $executable pub cache repair...');
+    return _runCommand(executable, ['pub', 'cache', 'repair']);
+  }
+
+  // ========== CODE ANALYSIS & QUALITY METHODS ==========
+
+  Future<RunnerProcessResult> dartAnalyze() async {
+    if (verbose) print('🔍 Running dart analyze...');
+    return _runCommand('dart', ['analyze']);
+  }
+
+  Future<RunnerProcessResult> dartFix({bool apply = false}) async {
+    final args = ['fix'];
+    if (apply) {
+      args.add('--apply');
+    } else {
+      args.add('--dry-run');
+    }
+    if (verbose) print('🔧 Running dart ${args.join(' ')}...');
+    return _runCommand('dart', args);
+  }
+
+  Future<RunnerProcessResult> dartFormat() async {
+    if (verbose) print('✨ Running dart format...');
+    return _runCommand('dart', ['format', '.']);
+  }
+
+  // ========== TESTING METHODS ==========
+
+  Future<RunnerProcessResult> flutterTest({String? testPath}) async {
+    if (!isFlutterProject) {
+      return RunnerProcessResult(
+        exitCode: 1,
+        stdout: '',
+        stderr: 'Not a Flutter project',
+      );
+    }
+
+    final args = ['test'];
+    if (testPath != null) args.add(testPath);
+
+    if (verbose) print('🧪 Running flutter ${args.join(' ')}...');
+    return _runCommand('flutter', args);
+  }
+
+  Future<RunnerProcessResult> flutterTestCoverage() async {
+    if (!isFlutterProject) {
+      return RunnerProcessResult(
+        exitCode: 1,
+        stdout: '',
+        stderr: 'Not a Flutter project',
+      );
+    }
+
+    if (verbose) print('📊 Running flutter test with coverage...');
+    return _runCommand('flutter', ['test', '--coverage']);
+  }
+
+  // ========== FLUTTER-SPECIFIC METHODS ==========
+
+  Future<RunnerProcessResult> flutterDoctor() async {
+    if (verbose) print('🏥 Running flutter doctor...');
+    return _runCommand('flutter', ['doctor', '-v']);
+  }
+
+  Future<RunnerProcessResult> flutterUpgrade() async {
+    if (verbose) print('⬆️  Running flutter upgrade...');
+    return _runCommand('flutter', ['upgrade']);
+  }
+
+  Future<RunnerProcessResult> flutterPubCacheClean() async {
+    if (!isFlutterProject) {
+      return RunnerProcessResult(
+        exitCode: 1,
+        stdout: '',
+        stderr: 'Not a Flutter project',
+      );
+    }
+
+    if (verbose) print('🧹 Running flutter pub cache clean...');
+    return _runCommand('flutter', ['pub', 'cache', 'clean']);
+  }
+
+  Future<RunnerProcessResult> flutterBuild(String target) async {
+    if (!isFlutterProject) {
+      return RunnerProcessResult(
+        exitCode: 1,
+        stdout: '',
+        stderr: 'Not a Flutter project',
+      );
+    }
+
+    if (verbose) print('🔨 Running flutter build $target...');
+    return _runCommand('flutter', ['build', target]);
+  }
+
+  Future<RunnerProcessResult> flutterRun({String? device}) async {
+    if (!isFlutterProject) {
+      return RunnerProcessResult(
+        exitCode: 1,
+        stdout: '',
+        stderr: 'Not a Flutter project',
+      );
+    }
+
+    final args = ['run'];
+    if (device != null) {
+      args.addAll(['-d', device]);
+    }
+
+    if (verbose) print('🚀 Running flutter ${args.join(' ')}...');
+    return _runCommand('flutter', args);
+  }
+
+  // ========== BUILD RUNNER METHODS ==========
+
+  Future<RunnerProcessResult> buildRunnerBuild(
+      {bool deleteConflicting = false}) async {
+    final args = ['run', 'build_runner', 'build'];
+    if (deleteConflicting) {
+      args.add('--delete-conflicting-outputs');
+    }
+
+    if (verbose) print('⚙️  Running $executable ${args.join(' ')}...');
+    return _runCommand(executable, args);
+  }
+
+  Future<RunnerProcessResult> buildRunnerWatch() async {
+    if (verbose) print('👁️  Running $executable run build_runner watch...');
+    return _runCommand(executable, ['run', 'build_runner', 'watch']);
+  }
+
+  Future<RunnerProcessResult> buildRunnerClean() async {
+    if (verbose) print('🧹 Running $executable run build_runner clean...');
+    return _runCommand(executable, ['run', 'build_runner', 'clean']);
+  }
+
+  // ========== STATIC UTILITY METHODS ==========
+
   static Future<bool> isDartAvailable() async {
     try {
       final result = await Process.run('dart', ['--version']);
@@ -117,6 +268,8 @@ class ProcessRunner {
       return null;
     }
   }
+
+  // ========== INTERNAL METHODS ==========
 
   /// Internal method to run commands
   Future<RunnerProcessResult> _runCommand(
